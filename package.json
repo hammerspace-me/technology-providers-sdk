@@ -1,0 +1,56 @@
+{
+  "name": "@bkpk/providers",
+  "version": "0.0.1",
+  "bugs": {
+    "url": "https://github.com/bkpkio/providers/issues"
+  },
+  "private": false,
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "browser": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "description": "Bkpk standard ESLint configurations",
+  "keywords": [
+    "AvatarConnect",
+    "avatars",
+    "web3",
+    "game",
+    "unity",
+    "unreal",
+    "metaverse",
+    "sdk"
+  ],
+  "contributors": [
+    {
+      "name": "Alex Patin",
+      "email": "thealexpatin@gmail.com",
+      "url": "https://www.patin.xyz"
+    }
+  ],
+  "files": [
+    "/dist"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "devDependencies": {
+    "eslint": "^8.19.0",
+    "eslint-config-bkpk": "^0.0.1",
+    "prettier": "^2.7.1",
+    "prettier-config-bkpk": "^0.0.1",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "axios": "^0.27.2"
+  },
+  "homepage": "https://github.com/bkpkio/providers#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/bkpkio/providers.git"
+  },
+  "license": "MIT",
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint --fix .",
+    "pub": "npm version patch --force && npm publish"
+  }
+}
