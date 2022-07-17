@@ -1,11 +1,11 @@
 import axios from 'axios'
 
 import Provider, { Pipeline, PipelineResponse } from '@/provider'
+import { FileFormat } from '@/types'
 import { getExtension, isUrl, replaceExtension } from '@/utils'
 
-import { ReadyPlayerMeConfig, ReadyPlayerMeMetadata } from './types'
 import icon from './icon.svg'
-import { FileFormat } from '@/types'
+import { ReadyPlayerMeConfig, ReadyPlayerMeMetadata } from './types'
 
 export default new Provider<ReadyPlayerMeConfig>(
   'ready-player-me',

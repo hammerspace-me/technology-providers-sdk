@@ -14,10 +14,10 @@ export default new Provider<CryptoAvatarsConfig>(
   new Pipeline<CryptoAvatarsConfig>()
     .web3('eth_requestAccounts', [], (result: string[]) => result[0])
     .transform<CryptoAvatarsApiResponse[]>(async function () {
-      // @ts-ignore
+      // @ts-expect-error This will be properly typed
       const { data } = await axios.get<CryptoAvatarsApiResponse[]>(
         `${this.config.apiUrl}/nfts/avatars/${
-          this.config.address || this.aggregate
+          this.config.address ?? this.aggregate
         }?skip=0&limit=20`,
         {
           headers: {

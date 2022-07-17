@@ -3,6 +3,7 @@ export interface ResultResponseTyped<TContext, TInput, TOutput> {
   type: 'result'
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ResultResponse = ResultResponseTyped<any, any, any>
 
 export type ResultInput<TContext, TInput, TOutput> = (

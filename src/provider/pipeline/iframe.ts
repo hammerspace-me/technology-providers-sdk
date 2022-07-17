@@ -3,9 +3,10 @@ export type IframeInput<TContext, TResponse> = [
   messageHandler: (this: TContext, message: string) => Promise<TResponse>
 ]
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type IframeResponse = IframeResponseTyped<any, any>
 
-export type IframeResponseTyped<TContext, TResponse> = {
+export interface IframeResponseTyped<TContext, TResponse> {
   src: string | ((this: TContext, callback: string) => string)
   messageHandler: (message: string) => Promise<TResponse>
   type: 'iframe'

@@ -1,7 +1,7 @@
 export interface CryptoAvatarsConfig {
   address?: string
   apiKey: string
-  apiUrl?: string
+  apiUrl: string
 }
 
 export interface CryptoAvatarsApiResponse {

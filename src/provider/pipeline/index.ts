@@ -1,18 +1,13 @@
 import { FileFormat } from '@/types'
 
+import Provider from '../provider'
+
 import iframeStage, { IframeInput, IframeResponse } from './iframe'
 import oauthStage, { OauthInput, OauthResponse } from './oauth'
-import web3Stage, {
-  Web3Input,
-  Web3Response,
-  JsonRpcApi,
-  Web3ResponseTyped,
-} from './web3'
-import transformStage, { TransformInput, TransformResponse } from './transform'
-import selectStage, { SelectInput, SelectResponse } from './select'
 import resultStage, { ResultInput, ResultResponse } from './result'
-
-import Provider from '../provider'
+import selectStage, { SelectInput, SelectResponse } from './select'
+import transformStage, { TransformInput, TransformResponse } from './transform'
+import web3Stage, { Web3Input, Web3Response, JsonRpcApi } from './web3'
 
 export type PipelineStage =
   | Web3Response
@@ -43,7 +38,7 @@ class Pipeline<
   TAggregate = unknown,
   TContext = PipelineFunctionContext<TConfig, TAggregate>
 > {
-  private pipeline: PipelineStage[] = []
+  private readonly pipeline: PipelineStage[] = []
 
   constructor(pipeline?: PipelineStage[]) {
     if (pipeline) this.pipeline = pipeline
@@ -55,10 +50,7 @@ class Pipeline<
     R = ReturnType<JsonRpcApi[M]>
   >(
     ...args: Web3Input<M, P, R>
-  ) =>
-    this.addStage<Web3ResponseTyped<TContext, M, P, R>>(
-      web3Stage<TContext, M, P, R>(...args)
-    )
+  ) => this.addStage<R>(web3Stage<TContext, M, P, R>(...args))
 
   transform = <TResponse>(
     ...args: TransformInput<TContext, TAggregate, TResponse>
@@ -87,7 +79,7 @@ class Pipeline<
       resultStage<TContext, TAggregate, PipelineResponse<TMetadata>>(args)
     ).pipeline
 
-  private addStage = <TNewAggregate>(
+  private readonly addStage = <TNewAggregate>(
     newStage: PipelineStage
   ): Pipeline<TConfig, TMetadata, TNewAggregate> => {
     const pipeline = [...this.pipeline, newStage]

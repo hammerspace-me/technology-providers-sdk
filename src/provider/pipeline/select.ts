@@ -1,4 +1,6 @@
-type ArrayElement<ArrayType> = ArrayType extends readonly (infer ElementType)[]
+type ArrayElement<ArrayType> = ArrayType extends ReadonlyArray<
+  infer ElementType
+>
   ? ElementType
   : never
 
@@ -15,6 +17,7 @@ export interface SelectResponseTyped<TContext, TInput, TOutput> {
   type: 'select'
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SelectResponse = SelectResponseTyped<any, any, any>
 
 const selectStage = <TContext, TInput, TOutput = TInput>({

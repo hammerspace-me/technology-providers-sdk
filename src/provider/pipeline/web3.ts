@@ -1,4 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type RpcRequest = (...args: any[]) => unknown
 
 export type OnlyRpcRequestProperties<T> = {
@@ -6,25 +6,25 @@ export type OnlyRpcRequestProperties<T> = {
 }
 
 export class JsonRpcApi implements OnlyRpcRequestProperties<JsonRpcApi> {
-  eth_requestAccounts!: (...args: void[]) => string[]
-  eth_account!: (...args: void[]) => string[]
+  eth_requestAccounts!: (...args: undefined[]) => string[]
+  eth_account!: (...args: undefined[]) => string[]
   personal_sign!: (...args: [string, string]) => string
-  chainId!: (...args: void[]) => string
+  chainId!: (...args: undefined[]) => string
 }
 
-export type Web3Response = {
+export interface Web3Response {
   method: string
   params: any[]
   format?: (args: any) => any
   type: 'web3'
 }
 
-export type Web3ResponseTyped<
+export interface Web3ResponseTyped<
   TContext,
   M extends keyof JsonRpcApi,
   P extends Parameters<JsonRpcApi[M]>,
   R = ReturnType<JsonRpcApi[M]>
-> = {
+> {
   method: M
   params: P
   format: (this: TContext, args: ReturnType<JsonRpcApi[M]>) => R
@@ -49,7 +49,7 @@ const web3Stage = <
   return {
     method,
     params,
-    format: format ? format : (v: ReturnType<JsonRpcApi[M]>): R => v as R,
+    format: format ?? ((v: ReturnType<JsonRpcApi[M]>): R => v as R),
     type: 'web3',
   }
 }

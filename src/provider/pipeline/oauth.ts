@@ -3,9 +3,10 @@ export type OauthInput<TContext, TQuery, TResponse> = [
   callbackQueryHandler: (this: TContext, query: TQuery) => Promise<TResponse>
 ]
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type OauthResponse = OauthResponseTyped<any, any, any>
 
-export type OauthResponseTyped<TContext, TQuery, TResponse> = {
+export interface OauthResponseTyped<TContext, TQuery, TResponse> {
   redirect: (this: TContext, callback: string) => string
   callbackQueryHandler: (query: TQuery) => Promise<TResponse>
   type: 'oauth'

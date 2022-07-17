@@ -1,4 +1,5 @@
 import { FileFormat } from '@/types'
+
 import { FormattedMeebitResponse, MeebitsApiEntry, OwnerFiles } from './types'
 
 const getFormatFilename = (format: FileFormat): keyof OwnerFiles => {

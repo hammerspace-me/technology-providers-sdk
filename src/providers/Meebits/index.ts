@@ -4,8 +4,8 @@ import Provider, { Pipeline } from '@/provider'
 
 import { FORMATS } from '@/utils'
 
-import icon from './icon.svg'
 import formatMetadata from './formatMetadata'
+import icon from './icon.svg'
 import {
   FormattedMeebitResponse,
   MeebitsConfig,

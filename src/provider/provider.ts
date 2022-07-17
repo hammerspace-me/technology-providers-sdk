@@ -21,7 +21,7 @@ export interface StageFunctionContext<ProviderT, ConfigT> {
   store: Record<string, unknown>
 }
 
-class Provider<ConfigT = void> {
+class Provider<ConfigT = undefined> {
   public id: string
   public title: string
   public name: string
@@ -45,7 +45,7 @@ class Provider<ConfigT = void> {
       purchaseLink,
     }: {
       config?: ProviderConfig<ConfigT> &
-        (ConfigT extends void
+        (ConfigT extends undefined
           ? 'You must pass in a configuration generic'
           : ProviderConfig<ConfigT>)
       purchaseLink?: string
@@ -61,13 +61,19 @@ class Provider<ConfigT = void> {
     this.purchaseLink = purchaseLink ?? null
   }
 
-  public configure(config: ConfigT): void {
-    if (!this.configurationRequirements || !config) return
-    this._config = Object.entries(
-      this.configurationRequirements as ConfigT extends void
+  public configure(
+    config: ConfigT &
+      (ConfigT extends undefined
         ? 'You must pass in a configuration generic'
-        : ConfigT
-    ).reduce<ConfigT>(
+        : ConfigT)
+  ): void {
+    if (!this.configurationRequirements || !config) return
+    const requirements = Object.entries(
+      this.configurationRequirements
+    ) as Array<[string, ConfigOption<unknown>]>
+
+    // @ts-expect-error This is properly typed
+    this._config = requirements.reduce<ConfigT>(
       (acc, [key, { default: defaultValue, required, validate }]) => {
         const value = config[key as keyof ConfigT]
 
@@ -87,7 +93,8 @@ class Provider<ConfigT = void> {
 
         return acc
       },
-      {} as ConfigT
+      // @ts-expect-error This is properly typed
+      {}
     )
   }
 
