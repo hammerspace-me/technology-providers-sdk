@@ -5,7 +5,16 @@ import { FileFormat } from '@/types'
 import { getExtension, isUrl, replaceExtension } from '@/utils'
 
 import icon from './icon.svg'
-import { ReadyPlayerMeConfig, ReadyPlayerMeMetadata } from './types'
+
+export interface ReadyPlayerMeMetadata {
+  bodyType: string
+  outfitGender: string
+  outfitVersion: number
+}
+
+export interface ReadyPlayerMeConfig {
+  gateway: string
+}
 
 export default new Provider<ReadyPlayerMeConfig>(
   'ready-player-me',
@@ -13,8 +22,8 @@ export default new Provider<ReadyPlayerMeConfig>(
   'RPM Avatar',
   'Create your avatar and explore virtual worlds with one identity',
   icon,
-  new Pipeline<ReadyPlayerMeConfig, ReadyPlayerMeMetadata>()
-    .iframe<PipelineResponse<ReadyPlayerMeMetadata>>(
+  new Pipeline<ReadyPlayerMeConfig>()
+    .iframe<PipelineResponse>(
       function () {
         return `https://${this.config.gateway}.readyplayer.me`
       },
@@ -22,19 +31,27 @@ export default new Provider<ReadyPlayerMeConfig>(
         if (!isUrl(message))
           throw new Error('Result provided is not a valid URL')
         const version = Math.floor(Math.random() * 100000) // We use this to cache-bust on the client side
-        const avatarUri = `${message}?v=${version}`
-        const extension = getExtension(avatarUri) as FileFormat
-        const metadataUri = replaceExtension(avatarUri, 'json')
+        const source = `${message}?v=${version}`
+        const extension = getExtension(source) as FileFormat
+        const metadataUri = replaceExtension(source, 'json')
 
-        const { data: metadata } = await axios.get<ReadyPlayerMeMetadata>(
-          metadataUri
-        )
+        const {
+          data: { outfitGender },
+        } = await axios.get<ReadyPlayerMeMetadata>(metadataUri)
 
         return {
-          format: extension,
-          type: 'humanoid',
-          uri: avatarUri,
-          metadata,
+          type: 'avatar',
+          data: source,
+          format: 'url',
+          metadata: {
+            source,
+            type:
+              outfitGender === 'masculine'
+                ? 'humanoid-male'
+                : 'humanoid-female',
+            fileFormat: extension,
+            bodyType: 'full-body',
+          },
         }
       }
     )
@@ -46,5 +63,3 @@ export default new Provider<ReadyPlayerMeConfig>(
     },
   }
 )
-
-export { ReadyPlayerMeMetadata }

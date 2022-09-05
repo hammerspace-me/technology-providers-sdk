@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import Provider, { Pipeline } from '@/provider'
+import Provider, { Pipeline, PipelineResponse } from '@/provider'
 
 import icon from './icon.png'
 import { CryptoAvatarsApiResponse, CryptoAvatarsConfig } from './types'
@@ -27,9 +27,19 @@ export default new Provider<CryptoAvatarsConfig>(
       )
       return data
     })
-    .select({
+    .select<PipelineResponse>({
       format({ metadata: { asset } }) {
-        return { avatar: { format: 'vrm', type: 'humanoid', uri: asset } }
+        return {
+          type: 'avatar',
+          data: asset,
+          format: 'url',
+          metadata: {
+            bodyType: 'full-body',
+            fileFormat: 'vrm',
+            type: 'humanoid',
+            source: asset,
+          },
+        }
       },
       image({ metadata: { image } }) {
         return image

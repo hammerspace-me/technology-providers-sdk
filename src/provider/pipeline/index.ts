@@ -17,11 +17,21 @@ export type PipelineStage =
   | IframeResponse
   | OauthResponse
 
-export interface PipelineResponse<TMetadata> {
-  uri: string
-  format: FileFormat
-  type: 'humanoid'
-  metadata: TMetadata extends TMetadata ? TMetadata : never
+export interface PipelineResponse {
+  type: 'avatar'
+  data: string
+  format?: 'url' | 'base64'
+  version?: number
+  metadata: {
+    source: string
+    type: 'humanoid' | 'humanoid-male' | 'humanoid-female'
+    fileFormat: FileFormat
+    reference?: string
+    bodyType?: 'full-body' | 'half-body'
+    boneStructure?: {
+      head?: string
+    }
+  }
 }
 
 export interface PipelineFunctionContext<TConfig, TAggregate> {
@@ -34,7 +44,6 @@ export interface PipelineFunctionContext<TConfig, TAggregate> {
 
 class Pipeline<
   TConfig,
-  TMetadata = unknown,
   TAggregate = unknown,
   TContext = PipelineFunctionContext<TConfig, TAggregate>
 > {
@@ -62,7 +71,7 @@ class Pipeline<
   iframe = <TResponse>(...args: IframeInput<TContext, TResponse>) =>
     this.addStage<TResponse>(iframeStage<TContext, TResponse>(...args))
 
-  select = <TResponse = PipelineResponse<TMetadata>>(
+  select = <TResponse = PipelineResponse>(
     args: SelectInput<TContext, TAggregate, TResponse>
   ) =>
     this.addStage<TResponse>(selectStage<TContext, TAggregate, TResponse>(args))
@@ -73,17 +82,16 @@ class Pipeline<
     this.addStage<TResponse>(oauthStage<TContext, TQuery, TResponse>(...args))
 
   result = (
-    args?: ResultInput<TContext, TAggregate, PipelineResponse<TMetadata>>
+    args?: ResultInput<TContext, TAggregate, PipelineResponse>
   ): PipelineStage[] =>
-    this.addStage(
-      resultStage<TContext, TAggregate, PipelineResponse<TMetadata>>(args)
-    ).pipeline
+    this.addStage(resultStage<TContext, TAggregate, PipelineResponse>(args))
+      .pipeline
 
   private readonly addStage = <TNewAggregate>(
     newStage: PipelineStage
-  ): Pipeline<TConfig, TMetadata, TNewAggregate> => {
+  ): Pipeline<TConfig, TNewAggregate> => {
     const pipeline = [...this.pipeline, newStage]
-    return new Pipeline<TConfig, TMetadata, TNewAggregate>(pipeline)
+    return new Pipeline<TConfig, TNewAggregate>(pipeline)
   }
 }
 
