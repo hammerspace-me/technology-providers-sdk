@@ -16,17 +16,25 @@ const formatMetadata = (
   { imageUrl, index, type, ...ownerFiles }: MeebitsApiEntry,
   accessToken: string,
   fileFormat: FileFormat
-): FormattedMeebitResponse => ({
-  avatar: {
-    source: `${
-      ownerFiles[getFormatFilename(fileFormat)]
-    }&accessToken=${accessToken}`,
-    type: 'humanoid',
-    fileFormat,
-    bodyType: 'full-body',
-  },
-  imageUrl,
-  index,
-})
+): FormattedMeebitResponse => {
+  const source = `${
+    ownerFiles[getFormatFilename(fileFormat)]
+  }&accessToken=${accessToken}`
+  return {
+    avatar: {
+      type: 'avatar',
+      data: source,
+      format: 'url',
+      metadata: {
+        source,
+        type: 'humanoid',
+        fileFormat,
+        bodyType: 'full-body',
+      },
+    },
+    imageUrl,
+    index,
+  }
+}
 
 export default formatMetadata

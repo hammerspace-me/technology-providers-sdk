@@ -27,7 +27,6 @@ export default new Provider<ReadyPlayerMeConfig>(
       function () {
         return `https://${this.config.gateway}.readyplayer.me`
       },
-
       async function (message) {
         if (!isUrl(message))
           throw new Error('Result provided is not a valid URL')
@@ -41,11 +40,18 @@ export default new Provider<ReadyPlayerMeConfig>(
         } = await axios.get<ReadyPlayerMeMetadata>(metadataUri)
 
         return {
-          source,
-          type:
-            outfitGender === 'masculine' ? 'humanoid-male' : 'humanoid-female',
-          fileFormat: extension,
-          bodyType: 'full-body',
+          type: 'avatar',
+          data: source,
+          format: 'url',
+          metadata: {
+            source,
+            type:
+              outfitGender === 'masculine'
+                ? 'humanoid-male'
+                : 'humanoid-female',
+            fileFormat: extension,
+            bodyType: 'full-body',
+          },
         }
       }
     )

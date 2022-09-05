@@ -18,13 +18,19 @@ export type PipelineStage =
   | OauthResponse
 
 export interface PipelineResponse {
-  source: string
-  type: 'humanoid' | 'humanoid-male' | 'humanoid-female'
-  fileFormat: FileFormat
-  reference?: string
-  bodyType?: 'full-body' | 'half-body'
-  boneStructure?: {
-    head?: string
+  type: 'avatar'
+  data: string
+  format?: 'url' | 'base64'
+  version?: number
+  metadata: {
+    source: string
+    type: 'humanoid' | 'humanoid-male' | 'humanoid-female'
+    fileFormat: FileFormat
+    reference?: string
+    bodyType?: 'full-body' | 'half-body'
+    boneStructure?: {
+      head?: string
+    }
   }
 }
 

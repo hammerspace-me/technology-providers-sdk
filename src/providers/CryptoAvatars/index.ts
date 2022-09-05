@@ -30,10 +30,15 @@ export default new Provider<CryptoAvatarsConfig>(
     .select<PipelineResponse>({
       format({ metadata: { asset } }) {
         return {
-          bodyType: 'full-body',
-          fileFormat: 'vrm',
-          type: 'humanoid',
-          source: asset,
+          type: 'avatar',
+          data: asset,
+          format: 'url',
+          metadata: {
+            bodyType: 'full-body',
+            fileFormat: 'vrm',
+            type: 'humanoid',
+            source: asset,
+          },
         }
       },
       image({ metadata: { image } }) {
