@@ -15,12 +15,15 @@ const getFormatFilename = (format: FileFormat): keyof OwnerFiles => {
 const formatMetadata = (
   { imageUrl, index, type, ...ownerFiles }: MeebitsApiEntry,
   accessToken: string,
-  format: FileFormat
+  fileFormat: FileFormat
 ): FormattedMeebitResponse => ({
   avatar: {
-    format,
-    type: type === 'HUMAN' ? 'humanoid' : null,
-    uri: `${ownerFiles[getFormatFilename(format)]}&accessToken=${accessToken}`,
+    source: `${
+      ownerFiles[getFormatFilename(fileFormat)]
+    }&accessToken=${accessToken}`,
+    type: 'humanoid',
+    fileFormat,
+    bodyType: 'full-body',
   },
   imageUrl,
   index,

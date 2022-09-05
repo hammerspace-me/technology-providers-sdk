@@ -1,3 +1,4 @@
+import { PipelineResponse } from '@/provider/pipeline'
 import { FileFormat } from '@/types'
 
 export interface MeebitsConfig {
@@ -29,11 +30,7 @@ export interface MeebitsApiResponse {
 }
 
 export interface FormattedMeebitResponse {
-  avatar: {
-    format: FileFormat
-    type: 'humanoid' | null
-    uri: string
-  }
+  avatar: PipelineResponse
   imageUrl: string
   index: string | number
 }
