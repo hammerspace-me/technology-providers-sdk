@@ -52,7 +52,8 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "npm run clean && tsc -b && tsconfig-replace-paths --project tsconfig.json",
+    "build": "npm run clean && tsc -b && tsconfig-replace-paths --project tsconfig.json && npm run copy-assets",
+    "copy-assets": "npx copyfiles -u 1 src/**/*.png src/**/*.svg src/**/*.jpg dist",
     "clean": "npx rimraf dist",
     "lint": "./node_modules/.bin/eslint --fix .",
     "pub": "npm version patch --force && npm publish"
