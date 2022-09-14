@@ -44,7 +44,7 @@ export default new Provider<ReadyPlayerMeConfig>(
           data: source,
           format: 'url',
           metadata: {
-            source,
+            source: 'ready-player-me',
             type:
               outfitGender === 'masculine'
                 ? 'humanoid-male'
