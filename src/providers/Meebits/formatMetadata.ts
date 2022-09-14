@@ -26,7 +26,7 @@ const formatMetadata = (
       data: source,
       format: 'url',
       metadata: {
-        source,
+        source: 'meebits',
         type: 'humanoid',
         fileFormat,
         bodyType: 'full-body',

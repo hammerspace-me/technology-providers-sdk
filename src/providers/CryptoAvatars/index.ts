@@ -37,7 +37,7 @@ export default new Provider<CryptoAvatarsConfig>(
             bodyType: 'full-body',
             fileFormat: 'vrm',
             type: 'humanoid',
-            source: asset,
+            source: 'crypto-avatars',
           },
         }
       },
