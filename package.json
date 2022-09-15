@@ -1,8 +1,8 @@
 {
-  "name": "@bkpk/providers",
+  "name": "@metaverse-backpack/backpack-providers",
   "version": "0.0.1",
   "bugs": {
-    "url": "https://github.com/bkpkio/providers/issues"
+    "url": "https://github.com/Metaverse-Backpack/backpack-providers/issues"
   },
   "private": false,
   "main": "dist/index.js",
@@ -45,10 +45,10 @@
   "dependencies": {
     "axios": "^0.27.2"
   },
-  "homepage": "https://github.com/bkpkio/providers#readme",
+  "homepage": "https://github.com/Metaverse-Backpack/backpack-providers",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/bkpkio/providers.git"
+    "url": "git+ssh://git@github.com/Metaverse-Backpack/backpack-providers.git"
   },
   "license": "MIT",
   "scripts": {
@@ -56,6 +56,8 @@
     "copy-assets": "npx copyfiles -u 1 src/**/*.png src/**/*.svg src/**/*.jpg dist",
     "clean": "npx rimraf dist",
     "lint": "./node_modules/.bin/eslint --fix .",
-    "pub": "npm version patch --force && npm publish"
+    "pub": "npm version patch --force && npm publish",
+    "prepublish": "npm version patch --force && npm run dist",
+    "dist": "npm run build"
   }
 }
