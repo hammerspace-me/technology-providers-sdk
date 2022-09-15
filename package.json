@@ -57,7 +57,7 @@
     "clean": "npx rimraf dist",
     "lint": "./node_modules/.bin/eslint --fix .",
     "pub": "npm version patch --force && npm publish",
-    "prepublish": "npm version patch --force && npm run dist",
+    "prepublish": "npm run dist",
     "dist": "npm run build"
   }
 }
