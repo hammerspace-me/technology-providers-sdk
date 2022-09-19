@@ -1,6 +1,6 @@
 {
   "name": "@metaverse-backpack/backpack-providers",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "bugs": {
     "url": "https://github.com/Metaverse-Backpack/backpack-providers/issues"
   },
@@ -50,9 +50,13 @@
     "type": "git",
     "url": "git+ssh://git@github.com/Metaverse-Backpack/backpack-providers.git"
   },
+  "config": {
+    "dirBuild": "./dist",
+    "dirSrc": "./src"
+  },
   "license": "MIT",
   "scripts": {
-    "build": "npm run clean && tsc -b && tsconfig-replace-paths --project tsconfig.json && npm run copy-assets",
+    "build": "npm run clean && tsc --project tsconfig.json && tsconfig-replace-paths --project tsconfig.json && npm run copy-assets",
     "copy-assets": "npx copyfiles -u 1 src/**/*.png src/**/*.svg src/**/*.jpg dist",
     "clean": "npx rimraf dist",
     "lint": "./node_modules/.bin/eslint --fix .",
