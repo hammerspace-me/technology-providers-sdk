@@ -58,7 +58,7 @@ export default new Provider<ReadyPlayerMeConfig>(
     .result(),
   {
     config: {
-      /** TODO: Replace this with a Bkpk gateway */
+      /** TODO: Replace this with a Hammerspace gateway */
       gateway: { default: 'mona', type: 'String' },
     },
   }
