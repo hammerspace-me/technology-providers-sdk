@@ -1,17 +1,18 @@
 {
-  "name": "@metaverse-backpack/backpack-providers",
-  "version": "0.0.4",
+  "name": "@hammerspace-me/technology-providers-sdk",
+  "version": "0.0.1",
   "bugs": {
-    "url": "https://github.com/Metaverse-Backpack/backpack-providers/issues"
+    "url": "https://github.com/hammerspace-me/technology-providers-sdk/issues"
   },
   "private": false,
   "main": "dist/index.js",
   "module": "dist/index.js",
   "browser": "dist/index.js",
   "types": "dist/index.d.ts",
-  "description": "Bkpk standard ESLint configurations",
+  "description": "Technology providers SDK for Hammerspace",
   "keywords": [
-    "AvatarConnect",
+    "hammerspace",
+    "hammerspace-me",
     "avatars",
     "web3",
     "game",
@@ -21,6 +22,16 @@
     "sdk"
   ],
   "contributors": [
+    {
+      "name": "Tobias Petrasch",
+      "email": "tobias.petrasch@protocol.ai",
+      "url": "https://petrasch.io"
+    },
+    {
+      "name": "Benedikt Wölk",
+      "email": "benedikt.woelk@protocol.ai",
+      "url": "https://woelk.io"
+    },
     {
       "name": "Alex Patin",
       "email": "thealexpatin@gmail.com",
@@ -45,10 +56,10 @@
   "dependencies": {
     "axios": "^0.27.2"
   },
-  "homepage": "https://github.com/Metaverse-Backpack/backpack-providers",
+  "homepage": "https://github.com/hammerspace-me/technology-providers-sdk",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/Metaverse-Backpack/backpack-providers.git"
+    "url": "git+ssh://git@github.com/hammerspace-me/technology-providers-sdk.git"
   },
   "config": {
     "dirBuild": "./dist",
